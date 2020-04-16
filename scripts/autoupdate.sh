@@ -1,5 +1,4 @@
 #!/bin/sh
-
 rom=0; 	#rom值若为0，则会出现可选菜单，也可手动改为1-6，将不会出现选项
 backup=0; 	#backup值若为0，则会出现可选菜单，也可手动改为1-2，将不会出现选项
 mode=0; 	#mode值若为0，则会出现可选菜单，也可手动改为1-2，将不会出现选项
@@ -19,7 +18,9 @@ while [ $rom -eq 0 ]
 		echo
 		echo " 6. 输入固件下载地址"
 		echo
-		read -p "$(echo -e "请选择 [\e[95m1-6\e[0m]:")" rom
+		echo " 7. 退出"
+		echo
+		read -p "$(echo -e "请选择 [\e[95m1-7\e[0m]:")" rom
 		case $rom in
 		1)
 			rom=1;;		
@@ -30,15 +31,18 @@ while [ $rom -eq 0 ]
 		4)
 			rom=4;;
 		5)
-			rom=5;;
+			rom=5;;	
 		6)
 			rom=6
 			read -p "$(echo -e "\e[92m请输入固件下载地址\e[0m:")" address
-			;;	
+			;;
+		7)      exit 1
+			;;
 		*)
 			rom=0
 			echo
 			echo -e '\e[91m输入错误，请重新输入\e[0m'
+			sleep 0.5s
 			;;
 		esac
 	done
@@ -241,6 +245,7 @@ if [ -f /mnt/mmcblk0p2/artifact/FriendlyWrt*.img.gz ]; then  #统一解压固件
 		pv /mnt/mmcblk0p2/FriendlyWrt*.img.gz | gunzip -dc > FriendlyWrt.img
 		echo -e '\e[92m准备解压镜像文件\e[0m'
 fi
+rm -rf /mnt/img
 mkdir /mnt/img
 losetup -o 100663296 /dev/loop0 /mnt/mmcblk0p2/FriendlyWrt.img
 mount /dev/loop0 /mnt/img
