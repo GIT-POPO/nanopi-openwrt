@@ -29,7 +29,7 @@ opkg install zstd
 ```
 然后下载脚本执行
 ```bash
-wget -qO- https://raw.githubusercontent.com/GIT-POPO/nanopi-openwrt/master/scripts/autoupdate.sh| sh
+wget -qO- https://github.com/klever1988/nanopi-openwrt/raw/master/scripts/autoupdate.sh | SH
 ```
 (脚本由gary lau提供，非常感谢！)
 
